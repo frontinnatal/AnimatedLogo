@@ -1,0 +1,83 @@
+@import "bourbon/bourbon"
+
+@include keyframes (boardIn)
+	to
+		@include transform (translate(-90px,-130px))
+	from
+		@include transform (translate(-90px,-490px))
+
+@keyframes fade
+	from
+		opacity: 0
+	to
+		opacity: 1
+
+@include keyframes (showTatu)
+	0%
+		@include transform (translateY(118px) scale(0))
+	50%
+		@include transform (translateY(-42px) scale(1))
+	100%
+		@include transform (translateY(0) scale(1))
+
+@include keyframes (showTatuFront)
+	0%
+		@include transform (translateY(118px) scale(0))
+		opacity: 0
+	50%
+		@include transform (translateY(-42px) scale(1))
+		opacity: 0
+	51%
+		opacity: 1
+	100%
+		@include transform (translateY(0) scale(1))
+		opacity: 1
+
+
+.Background:not(.tatu)
+	fill: #46290f
+	@include animation (boardIn 0.5s cubic-bezier(0.76, -0.01, 0.29, 1.6) forwards)
+	@include transform-origin (-90px -130px)
+	@include transform(translate(-90px,-130px))
+
+.Background, .Text, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8
+	fill-rule: evenodd
+
+$i: 0.5s
+
+@for $children from 8 to 0
+	.domino:nth-child(#{$children})
+		@include animation(fade 0.5s ease $i forwards)
+		*
+			@include animation(fade 0.3s ease $i forwards)
+	$i: $i + .3s
+
+.Text
+	fill: #ffcb05
+	opacity: 0
+
+.cls-4
+	fill: #c5962d
+
+.cls-5
+	fill: #c7962c
+
+.cls-6
+	fill: #9f6a28
+
+.cls-7
+	fill: #ecc85c
+
+.cls-8
+	fill: #aa762b
+
+.Object-TATU
+	opacity: 1
+	@include transform-origin(center center)
+	@include transform(scale(0))
+	@include animation(showTatu 0.5s ease 2.8s forwards)
+
+.Object-TATU-front
+	@include transform-origin(center center)
+	@include transform(scale(0))
+	@include animation(showTatuFront 0.5s ease 2.8s forwards)
